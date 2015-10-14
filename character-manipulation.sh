@@ -1,5 +1,5 @@
 #/bin/bash
-#read in a list of file names
+#read in a list of file names from the current diretory
 for file in *.avi; 
 do
 	#The first instance of sed here removes all characters before the first instance of a hyphen "-" in all filenames
