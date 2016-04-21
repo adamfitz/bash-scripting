@@ -2,6 +2,7 @@
 #
 # Author: Adam Fitzgerald
 # Purpose: Script to iterate though a /8, /16 or /24 and output any A records within that subnet
+# Version: 0.1
 
 prefix=$1
 subnetMask=$2
