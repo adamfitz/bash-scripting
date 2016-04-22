@@ -55,6 +55,7 @@ checkSubnetMask()
             printf "255.255.255.0 - Class C"
             printf "\n"
         else
+            kill -INT $$ #exit the fuction/script and drop back to the shell prompt
     fi
 }
 
