@@ -40,7 +40,7 @@ subnetCheckUsage()
 #Function to check classfull subnet mask is supplied
 checkSubnetMask()
 {
-    if ("$subnetMask" != "255.255.255.0" || "255.255.0.0" || "255.0.0.0");
+    if [ "$subnetMask" != "255.255.255.0" || "255.255.0.0" ||  "255.0.0.0" ];
         then
             printf "Invalid subnet mask supplied!"
             printf "\n"
@@ -54,10 +54,31 @@ checkSubnetMask()
             printf "\n"
             printf "255.255.255.0 - Class C"
             printf "\n"
-            kill -INT $$ #exit the fuction/script and drop back to the shell prompt
         else
             return 0
     fi
+}
+
+findAndPrintDNSRecords()
+{
+    # remove all characters after the last dot in the IP addres and assign to new variables
+    subnetIP="${prefix%.*}"
+
+    printf "\n"
+    printf "\n"
+    printf "All A records in  $prefix with subnet of  $subnetMask are:"
+    printf "\n"
+    printf "\n"
+
+    # iterate though the subnet checking the DNS records
+    for n in $(seq 1 254); 
+        do IP=$subnetIP.${n}; 
+            echo -e "${IP}\t$(dig -x ${IP} +short)" | grep 'com\|net\|local\|org';
+        done
+
+    printf "\n"
+    printf "\n"
+    printf "Operation completed. " 
 }
 
 #
@@ -73,11 +94,19 @@ if ([ -z "$prefix" ] || [ -z "$subnetMask" ]);
         then
             subnetCheckUsage
     else
+        operationStartTime=`$(($(date +%s%N)/1000000))`
         printf "\n"
-        printf "Put the for loop to check the subnet"
+        printf "Operation Start Time: $operationStartTime"
+        printf "\n"
+        printf "\n"
+        findAndPrintDNSRecords
+        operationEndTime='$(($(date +%s%N)/1000000))`'
+        operationElapsedTime='$(($operationEndTime - $operationStartTime))'
+        printf "\n"
+        printf "Program Completed."
+        printf "\n"
+        printf "Elapsed Time:  $operationElapsedTime"
         printf "\n"
     fi
 printf "\n"
 printf "\n"
-
-
