@@ -46,9 +46,8 @@ findAndPrintDNSRecords()
     # iterate though the subnet checking the DNS records
     for n in $(seq 1 254); 
         do iP=$subnetIp.${n}; 
-            echo -e "${iP}\t$(dig -x ${iP} +short)" | grep 'com\|net\|local\|org\|gov\|int\|mil\|edu';
+            printf "${iP}\t$(dig -x ${iP} +short)" | grep 'com\|net\|local\|org\|gov\|int\|mil\|edu';
         done
-    printf "\n"
 }
 
 #
