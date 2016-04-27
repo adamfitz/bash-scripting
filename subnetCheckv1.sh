@@ -39,8 +39,6 @@ findAndPrintDNSRecords()
     # remove all characters after the last dot in the IP addres and assign to new variables
     subnetIP="${prefix%.*}"
 
-    printf "\n"
-    printf "\n"
     printf "All A records in $subnetIP.0/24 are:"
     printf "\n"
     printf "\n"
@@ -52,7 +50,6 @@ findAndPrintDNSRecords()
         done
     printf "\n"
     printf "\n"
-    printf "Operation completed. " 
 }
 
 #
@@ -66,15 +63,15 @@ if [ -z "$prefix" ];
         then
             subnetCheckUsage
     else
-        operationtartTime=$(($(date +%s%N)/1000000))
+        operationStartTime=$(($(date +%s%N)/1000000))
         printf "\n"
         printf "\n"
         findAndPrintDNSRecords
         printf "\n"
         printf "\n"
         operationEndTime=$(($(date +%s%N)/1000000))
-        operationElapsedTime=($operationStartTime - $operationEndTime)
-        printf "Script run time $operationElapsedTime"
+        operationElapsedTime=$(($operationEndTime - $operationStartTime))
+        printf "Operation completed in $operationElapsedTime msec. " 
         printf "\n"
     fi
 printf "\n"
