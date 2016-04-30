@@ -37,19 +37,17 @@ subnetCheckUsage()
 findAndPrintDNSRecords()
 {
     # remove all characters after the last dot in the IP addres and assign to new variables
-    subnetIP="${prefix%.*}"
+    subnetIp="${prefix%.*}"
 
-    printf "All A records in $subnetIP.0/24 are:"
+    printf "Checking $subnetIp.0/24 for any DNS records with suffix of .com .net .org .edu .gov .int .mil or .local"
     printf "\n"
     printf "\n"
 
     # iterate though the subnet checking the DNS records
     for n in $(seq 1 254); 
-        do IP=$subnetIP.${n}; 
-            echo -e "${IP}\t$(dig -x ${IP} +short)" | grep 'com\|net\|local\|org';
+        do iP=$subnetIp.${n}; 
+            printf "${iP}\t$(dig -x ${iP} +short)" | grep 'com\|net\|local\|org\|gov\|int\|mil\|edu';
         done
-    printf "\n"
-    printf "\n"
 }
 
 #
