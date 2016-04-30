@@ -39,14 +39,14 @@ findAndPrintDNSRecords()
     # remove all characters after the last dot in the IP addres and assign to new variables
     subnetIp="${prefix%.*}"
 
-    printf "Checking $subnetIp.0/24 for any DNS records with suffix of .com .net .org .edu .gov .int .mil or .local"
+    printf "Checking $subnetIp.0/24 for any DNS records with suffix of .com .net .org .edu or .gov"
     printf "\n"
     printf "\n"
 
     # iterate though the subnet checking the DNS records
     for n in $(seq 1 254); 
         do iP=$subnetIp.${n}; 
-            printf "${iP}\t$(dig -x ${iP} +short)" | grep 'com\|net\|local\|org\|gov\|int\|mil\|edu';
+            printf "${iP}\t$(dig -x ${iP} +short)" | grep 'com\|net\|org\|gov\|edu';
         done
 }
 
