@@ -63,15 +63,16 @@ if [ -z "$prefix" ];
         then
             subnetCheckUsage
     else
-        operationStartTime=$(($(date +%s%N)/1000000))
+#Script runtime commented out to allow testing on osx
+#        operationStartTime=$(($(date +%s%N)/1000000))
         printf "\n"
         printf "\n"
         findAndPrintDNSRecords
         printf "\n"
         printf "\n"
-        operationEndTime=$(($(date +%s%N)/1000000))
-        operationElapsedTime=$(($operationEndTime - $operationStartTime))
-        printf "Operation completed in $operationElapsedTime msec. " 
+#        operationEndTime=$(($(date +%s%N)/1000000))
+#        operationElapsedTime=$(($operationEndTime - $operationStartTime))
+#        printf "Operation completed in $operationElapsedTime msec. " 
         printf "\n"
     fi
 printf "\n"
