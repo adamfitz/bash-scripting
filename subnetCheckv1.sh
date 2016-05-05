@@ -10,15 +10,16 @@ prefix=$1
 subnetCheckUsage()
 {
     printf "\n"
-    printf "\n"
     printf "Help:"
+    printf "\n"
+    printf "====="
     printf "\n"
     printf "subnetCheck.sh -h (prints this help screen)"
     printf "\n"
     printf "\n"
     printf "Usage:"
     printf "\n"
-    printf "subnetCheck.sh <ip prefix>"
+    printf "subnetCheck.sh <ip address>"
     printf "\n"
     printf "\n"
     printf "Example:"
@@ -32,6 +33,18 @@ subnetCheckUsage()
 }
 
 # Function to check for correct ip address format (ipv4, four octects and all octects are between 0 and 255)
+validateIpAddress()
+{
+    if [[ $prefix =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          return 0
+      else
+            printf "\n"
+            printf "Invalid IP address, please enter a valid IP address"
+            printf "\n"
+            printf "\n"
+            exit 1
+    fi
+}   
 
 
 findAndPrintDNSRecords()
@@ -39,7 +52,7 @@ findAndPrintDNSRecords()
     # remove all characters after the last dot in the IP addres and assign to new variables
     subnetIp="${prefix%.*}"
 
-    printf "Checking $subnetIp.0/24 for any DNS records with suffix of .com .net .org .edu or .gov"
+    printf "Searching $subnetIp.0/24 for any DNS records with a suffix of .com .net .org .edu or .gov"
     printf "\n"
     printf "\n"
 
@@ -61,16 +74,16 @@ if [ -z "$prefix" ];
         then
             subnetCheckUsage
     else
-#Script runtime commented out to allow testing on osx
-#        operationStartTime=$(($(date +%s%N)/1000000))
+        validateIpAddress
+        operationStartTime=$(($(date +%s%N)/1000000))
         printf "\n"
         printf "\n"
         findAndPrintDNSRecords
         printf "\n"
         printf "\n"
-#        operationEndTime=$(($(date +%s%N)/1000000))
-#        operationElapsedTime=$(($operationEndTime - $operationStartTime))
-#        printf "Operation completed in $operationElapsedTime msec. " 
+        operationEndTime=$(($(date +%s%N)/1000000))
+        operationElapsedTime=$(($operationEndTime - $operationStartTime))
+        printf "Operation completed in $operationElapsedTime msec. " 
         printf "\n"
     fi
 printf "\n"
