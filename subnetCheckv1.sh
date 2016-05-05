@@ -33,11 +33,13 @@ subnetCheckUsage()
 }
 
 # Function to check for correct ip address format (ipv4, four octects and all octects are between 0 and 255)
+# Need to add validation to check the first octect does not start with a zero
 validateIpAddress()
 {
-    if [[ $prefix =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-          return 0
-      else
+    if [[ $prefix =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; 
+        then
+            return 0
+        else
             printf "\n"
             printf "Invalid IP address, please enter a valid IP address"
             printf "\n"
@@ -52,7 +54,7 @@ findAndPrintDNSRecords()
     # remove all characters after the last dot in the IP addres and assign to new variables
     subnetIp="${prefix%.*}"
 
-    printf "Searching $subnetIp.0/24 for any DNS records with a suffix of .com .net .org .edu or .gov"
+    printf "Checking $subnetIp.0/24 for any DNS records with a suffix of .com .net .org .edu or .gov"
     printf "\n"
     printf "\n"
 
