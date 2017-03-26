@@ -1,5 +1,5 @@
 # bash-scripting
-Some basic shell scripts I use
+Some basic shell scripts I sometimes find useful
 
 subnetCheck.sh - do a reverse lookup on all Ipv4 addresses in a /24 netblock
 
