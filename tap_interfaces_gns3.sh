@@ -13,6 +13,8 @@ sudo tunctl -t tap2
 sudo tunctl -t tap3
 sudo tunctl -t tap4
 sudo tunctl -t tap5
+printf "created tap interfaces..."
+printf "\n"
 #remove the IP and set the interface to up
 sudo ifconfig tap0 0.0.0.0 promisc up
 sudo ifconfig tap1 0.0.0.0 promisc up
@@ -20,6 +22,9 @@ sudo ifconfig tap2 0.0.0.0 promisc up
 sudo ifconfig tap3  0.0.0.0 promisc up
 sudo ifconfig tap4 0.0.0.0 promisc up
 sudo ifconfig tap5 0.0.0.0 promisc up
+printf "\n"
+printf "set tap interfaces in promiscious mode..."
+printf "\n"
 #add the tap interfaces to the existing linux bridge
 sudo brctl addif bridge0 tap0
 sudo brctl addif bridge0 tap1
@@ -27,5 +32,9 @@ sudo brctl addif bridge0 tap2
 sudo brctl addif bridge0 tap3
 sudo brctl addif bridge0 tap4
 sudo brctl addif bridge0 tap5
-
-
+printf "\n"
+printf "added tap interfaces to existing bridge interface (bridge0)..."
+printf "\n"
+printf "\n"
+printf "Finished...go lab!"
+printf "\n"
