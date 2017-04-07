@@ -38,3 +38,5 @@ printf "\n"
 printf "\n"
 printf "Finished...go lab!"
 printf "\n"
+printf "Starting GNS3 as root..."
+sudo gns3
