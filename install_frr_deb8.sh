@@ -106,7 +106,11 @@ printf "\n"
 printf "Then reboot or use sysctl -p to apply the same config to the running system"
 printf "\n"
 printf "\n"
-printf "\n"
+printf "Adding library directory to /etc/ld.so.conf to avoid issue with not finding shared libraries"
+#adding this directory to avoid the error below, when trying to start zebra:
+# ./zebra: error while loading shared libraries: libfrr.so.0: cannot open shared object file: No such file or directory
+echo include /usr/lib/frr >> /etc/ld.so.conf
+ldconfig
 printf "\n"
 printf "\n"
 printf "\n"
@@ -119,24 +123,3 @@ System binaries dir:                /usr/lib/frr
 System configuration dir:           /etc/frr
 "
 printf "\n"
-
-# -*- FRR is installed now -*-
-printf "
-To setup vty terminal interfaces you need to add the following:
-
-from the below link:
-https://frrouting.org/user-guide/Install-the-Software.html#Install-the-Software
-
-After installation, you have to setup each beast’s port number to connect to them. Please add the following entries to /etc/services.
-
-zebrasrv      2600/tcp		  # zebra service
-zebra         2601/tcp		  # zebra vty
-ripd          2602/tcp		  # RIPd vty
-ripngd        2603/tcp		  # RIPngd vty
-ospfd         2604/tcp		  # OSPFd vty
-bgpd          2605/tcp		  # BGPd vty
-ospf6d        2606/tcp		  # OSPF6d vty
-ospfapi       2607/tcp		  # ospfapi
-isisd         2608/tcp		  # ISISd vty
-pimd          2611/tcp		  # PIMd vty
-"
