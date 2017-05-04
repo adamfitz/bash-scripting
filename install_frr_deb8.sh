@@ -41,18 +41,18 @@ printf "Cloning the frr Debian 8 git repo into the following directory:"
 printf "\n"
 printf "$current_dir"
 printf "\n"
-stop_and_wait 'Press any key to continue or CTRL + C to abort...'
+stop_and_wait 'Press ENTER to continue or CTRL + C to abort...'
 printf "\n"
 # Clone git repo into a subdirectory of current dir called frr
 git clone https://github.com/frrouting/frr.git frr
 printf "\n"
-stop_and_wait 'Starting frr installation, press any key to continue or CTRL + C to abort...'
+stop_and_wait 'Starting frr installation, press ENTER to continue or CTRL + C to abort...'
 printf "\n"
 # start the frr install
 cd $current_dir/frr
 ./bootstrap.sh
 printf "\n"
-printf "building frr with all th default options"
+printf "building frr with all the default options"
 printf "\n"
 # configure
 cd $current_dir/frr
@@ -71,7 +71,7 @@ cd $current_dir/frr
 make install
 
 printf "\n"
-printf "Install completed, creating the configuration files in /etc/frr/*"
+printf "Install completed, creating the configuration files in /etc/frr/\n"
 printf "================================================================="
 printf "\n"
 printf "\n"
@@ -92,30 +92,40 @@ install -m 640 -o frr -g frrvty /dev/null /etc/frr/vtysh.conf
 
 printf "Configuration files are created"
 printf "\n"
-printf "Install completed, creating the configuration files in /etc/frr/*"
 printf "\n"
-printf "\n"
-printf "Finally un comment the following lines in /etc/sysctl.conf to enable Ipv4 and Ipv6 forwarding"
-printf "\n"
-# uncomment out the following lines in /etc/sysctl.conf
-printf "
-net.ipv4.ip_forward=1
-net.ipv6.conf.all.forwarding=1
-"
-printf "\n"
-printf "Then reboot or use sysctl -p to apply the same config to the running system"
+
+if grep -q '#net.ipv4.ip_forward=1' "/etc/sysctl.conf"; then
+    sed -i -e 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+    printf "=== net.ipv4.ip_forward=1 has been uncommented from  /etc/sysctl.conf ===\n"
+    sysctl -p
+    printf "IPv4 forwarding is now enabled in /etc/sysctl.conf and loaded on the system"
+else
+    printf "IPv4 forwarding is already enabled in /etc/sysctl.conf\n"
+fi
+
+if grep -q '#net.ipv6.conf.all.forwarding=1' "/etc/sysctl.conf"; then
+    sed -i -e 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/g' /etc/sysctl.conf
+    printf "=== net.ipv6.conf.all.forwarding=1 has been uncommented from  /etc/sysctl.conf ===\n"
+    sysctl -p
+    printf "IPv6 forwarding is now enabled in /etc/sysctl.conf and loaded on the system\n"
+else
+    printf "IPv6 forwarding is already enabled in /etc/sysctl.conf\n"
+fi
+
 printf "\n"
 printf "\n"
 printf "Adding library directory to /etc/ld.so.conf to avoid issue with not finding shared libraries"
 #adding this directory to avoid the error below, when trying to start zebra:
 # ./zebra: error while loading shared libraries: libfrr.so.0: cannot open shared object file: No such file or directory
+
+#== write function to check if the line is in the below file and if not add it.
 echo include /usr/lib/frr >> /etc/ld.so.conf
 ldconfig
 printf "\n"
 printf "\n"
 printf "\n"
 printf "
-Frr is installed to the following directories\n:
+Frr is installed to the following directories:\n
 ===============================================
 Example dir:                        /usr/share/doc/frr/examples
 Local State Directory dir:          /var/run/frr
