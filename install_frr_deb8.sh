@@ -96,16 +96,14 @@ printf "\n"
 
 if grep -q '#net.ipv4.ip_forward=1' "/etc/sysctl.conf"; then
     sed -i -e 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
-    printf "=== net.ipv4.ip_forward=1 has been uncommented from  /etc/sysctl.conf ===\n"
     sysctl -p
-    printf "IPv4 forwarding is now enabled in /etc/sysctl.conf and loaded on the system"
+    printf "IPv4 forwarding is now enabled in /etc/sysctl.conf and loaded on the system\n"
 else
     printf "IPv4 forwarding is already enabled in /etc/sysctl.conf\n"
 fi
 
 if grep -q '#net.ipv6.conf.all.forwarding=1' "/etc/sysctl.conf"; then
     sed -i -e 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/g' /etc/sysctl.conf
-    printf "=== net.ipv6.conf.all.forwarding=1 has been uncommented from  /etc/sysctl.conf ===\n"
     sysctl -p
     printf "IPv6 forwarding is now enabled in /etc/sysctl.conf and loaded on the system\n"
 else
@@ -118,9 +116,17 @@ printf "Adding library directory to /etc/ld.so.conf to avoid issue with not find
 #adding this directory to avoid the error below, when trying to start zebra:
 # ./zebra: error while loading shared libraries: libfrr.so.0: cannot open shared object file: No such file or directory
 
-#== write function to check if the line is in the below file and if not add it.
-echo include /usr/lib/frr >> /etc/ld.so.conf
-ldconfig
+#back function to check if the library will be loaded on boot and add it if not
+if grep -xq "include /usr/lib/frr" /etc/ld.so.conf;
+    then
+        printf "/usr/lib/frr directory already exists in /etc/ld.so.conf"
+    else
+        echo include /usr/lib/frr >> /etc/ld.so.conf
+        printf "Added the follwing line to /etc/ld.so.conf file:\n
+        include /usr/lib/frr"
+        ldconfig
+fi
+
 printf "\n"
 printf "\n"
 printf "\n"
