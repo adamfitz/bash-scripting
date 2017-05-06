@@ -1,6 +1,18 @@
 #!/bin/bash
 #
 # basic bash script to clone and install frr for debian 8 systems
+# To Do list:
+# - check if cnofiguration files exist and dont re create if they already exists
+# - check if frr directory exists and prompt to delete (or just remove it or state this at the beginning of the script
+# - chcek for teh frr directory??
+#/*
+
+#
+#
+#
+#
+#
+#
 #
 function stop_and_wait()
     {
@@ -35,16 +47,18 @@ adduser --system --ingroup frr --home /var/run/frr/ --gecos "FRR suite" --shell 
 usermod -a -G frrvty frr
 
 current_dir=$(pwd)
-
-printf "\n"
-printf "Cloning the frr Debian 8 git repo into the following directory:"
-printf "\n"
-printf "$current_dir"
-printf "\n"
-stop_and_wait 'Press ENTER to continue or CTRL + C to abort...'
-printf "\n"
-# Clone git repo into a subdirectory of current dir called frr
-git clone https://github.com/frrouting/frr.git frr
+if [ -d "$current_dir/frr" ];
+    then
+        printf "\n"
+        printf "!! -*- The directoy $current_dir/frr already exists!! -*- !!\n"
+        printf "\n"
+        stop_and_wait 'If you continue this directory WILL BE DELETED, press ENTER to continue or CTRIL + C to abort...'
+        printf "\nDeleting $current_dir/frr\n"
+        rm -rf $current_dir/frr
+        printf "Cloning free range routing (frr) repo into the following directory:\n"
+        printf "$current_dir/frr\n"
+        git clone https://github.com/frrouting/frr.git frr
+fi
 printf "\n"
 stop_and_wait 'Starting frr installation, press ENTER to continue or CTRL + C to abort...'
 printf "\n"
@@ -56,7 +70,7 @@ printf "building frr with all the default options"
 printf "\n"
 # configure
 cd $current_dir/frr
-./configure --enable-exampledir=/usr/share/doc/frr/examples/ --localstatedir=/var/run/frr --sbindir=/usr/lib/frr --sysconfdir=/etc/frr --enable-vtysh --enable-isisd --enable-pimd --enable-watchfrr --enable-ospfclient=yes --enable-ospfapi=yes --enable-multipath=64 --enable-user=frr --enable-group=frr --enable-vty-group=frrvty --enable-configfile-mask=0640 --enable-logfile-mask=0640 --enable-rtadv --enable-tcp-zebra --enable-fpm --enable-ldpd --with-pkg-git-version --with-pkg-extra-version=-MyOwnFRRVersion
+./configure --enable-exampledir=/usr/share/doc/frr/examples/ --localstatedir=/var/frr --sbindir=/usr/lib/frr --sysconfdir=/etc/frr --enable-vtysh --enable-isisd --enable-pimd --enable-watchfrr --enable-ospfclient=yes --enable-ospfapi=yes --enable-multipath=64 --enable-user=frr --enable-group=frr --enable-vty-group=frrvty --enable-configfile-mask=0640 --enable-logfile-mask=0640 --enable-rtadv --enable-tcp-zebra --enable-fpm --enable-ldpd --with-pkg-git-version --with-pkg-extra-version=-MyOwnFRRVersion
 
 printf "\n"
 printf "running make, make check and make install\n"
