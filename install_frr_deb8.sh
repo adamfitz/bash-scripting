@@ -58,6 +58,10 @@ if [ -d "$current_dir/frr" ];
         printf "Cloning free range routing (frr) repo into the following directory:\n"
         printf "$current_dir/frr\n"
         git clone https://github.com/frrouting/frr.git frr
+    else
+        printf "Cloning free range routing (frr) repo into the following directory:\n"
+        printf "$current_dir/frr\n"
+        git clone https://github.com/frrouting/frr.git frr
 fi
 printf "\n"
 stop_and_wait 'Starting frr installation, press ENTER to continue or CTRL + C to abort...'
@@ -70,7 +74,7 @@ printf "building frr with all the default options"
 printf "\n"
 # configure
 cd $current_dir/frr
-./configure --enable-exampledir=/usr/share/doc/frr/examples/ --localstatedir=/var/frr --sbindir=/usr/lib/frr --sysconfdir=/etc/frr --enable-vtysh --enable-isisd --enable-pimd --enable-watchfrr --enable-ospfclient=yes --enable-ospfapi=yes --enable-multipath=64 --enable-user=frr --enable-group=frr --enable-vty-group=frrvty --enable-configfile-mask=0640 --enable-logfile-mask=0640 --enable-rtadv --enable-tcp-zebra --enable-fpm --enable-ldpd --with-pkg-git-version --with-pkg-extra-version=-MyOwnFRRVersion
+./configure --enable-exampledir=/usr/share/doc/frr/examples/ --localstatedir=/opt/lib/frr --sbindir=/usr/lib/frr --sysconfdir=/etc/frr --enable-vtysh --enable-isisd --enable-pimd --enable-watchfrr --enable-ospfclient=yes --enable-ospfapi=yes --enable-multipath=64 --enable-user=frr --enable-group=frr --enable-vty-group=frrvty --enable-configfile-mask=0640 --enable-logfile-mask=0640 --enable-rtadv --enable-tcp-zebra --enable-fpm --enable-ldpd --with-pkg-git-version --with-pkg-extra-version=-MyOwnFRRVersion
 
 printf "\n"
 printf "running make, make check and make install\n"
@@ -79,7 +83,7 @@ printf "\n"
 # make
 cd $current_dir/frr
 make
-cd $current_dir/frr
+cd $current_dir/frr`
 make check
 cd $current_dir/frr
 make install
@@ -150,7 +154,7 @@ printf "
 Frr is installed to the following directories:\n
 ===============================================
 Example dir:                        /usr/share/doc/frr/examples
-Local State Directory dir:          /var/run/frr
+Local State Directory dir:          /opt/lib/frr
 System binaries dir:                /usr/lib/frr
 System configuration dir:           /etc/frr
 "
