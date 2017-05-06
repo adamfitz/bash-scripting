@@ -71,8 +71,8 @@ cd $current_dir/frr
 make install
 
 printf "\n"
-printf "Install completed, creating the configuration files in /etc/frr/\n"
-printf "================================================================="
+printf "Creating the configuration files in /etc/frr/\n"
+printf "==============================================="
 printf "\n"
 printf "\n"
 # create the frr config files:
@@ -90,7 +90,7 @@ install -m 640 -o frr -g frr /dev/null /etc/frr/ldpd.conf
 install -m 640 -o frr -g frr /dev/null /etc/frr/nhrpd.conf
 install -m 640 -o frr -g frrvty /dev/null /etc/frr/vtysh.conf
 
-printf "Configuration files are created"
+printf "Configuration files created"
 printf "\n"
 printf "\n"
 
@@ -112,7 +112,9 @@ fi
 
 printf "\n"
 printf "\n"
-printf "Adding library directory to /etc/ld.so.conf to avoid issue with not finding shared libraries"
+printf "Cehcking if library directory exists in /etc/ld.so.conf to avoid
+issue with not finding shared libraries, directory will be added if it is not
+already."
 #adding this directory to avoid the error below, when trying to start zebra:
 # ./zebra: error while loading shared libraries: libfrr.so.0: cannot open shared object file: No such file or directory
 
