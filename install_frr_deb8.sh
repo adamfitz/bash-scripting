@@ -83,7 +83,7 @@ printf "\n"
 # make
 cd $current_dir/frr
 make
-cd $current_dir/frr`
+cd $current_dir/frr
 make check
 cd $current_dir/frr
 make install
