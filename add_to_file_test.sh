@@ -1,11 +1,12 @@
 #!/bin/bash
 #
-# test using sed to add a new line to the end of a file if it does not already exist
+# check if the livrary is loaded and add it if not
 #
-if grep -q "include /usr/lib/frr" "/etc/ld.so.conf"; then
-    echo sed '$ a include /usr/lib/frr' /etc/ld.so.conf
-    printf "The /usr/lib/frr library directory has been added to: /etc/ld.so.conf ===\n"
-    echo ldconfig
-else
-    printf "The /usr/lib/frr library directory is already present in the /etc/ld.so.conf file\n"
+if grep -xq "include /usr/lib/frr" /etc/ld.so.conf;
+    then
+        printf "\nAlready there\n\n"
+    else
+        echo include /usr/lib/frr >> /etc/ld.so.conf
+        printf "\nWasnt there added it\n\n"
+        #ldconfig
 fi
