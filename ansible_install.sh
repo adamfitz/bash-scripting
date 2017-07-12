@@ -6,4 +6,4 @@ printf "Adding keyserver.ubuntu.com"
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C36 -y
 sudo apt-get update
 printf "Installing ansible and prerequisites"
-sudo apt-get install ansible --force-yes
+sudo apt-get install ansible -y --force-yes
