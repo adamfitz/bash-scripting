@@ -7,4 +7,4 @@ Some basic shell scripts I sometimes find useful
 
 - install_frr_deb8.sh - script to install and configure frrouting (from git repo) on debian 8
 
-- ansible_install.sh - installs ansible from Ubuntu PPA (works with ubuntu/debian)
+- ansible_install_ubuntu.sh - installs ansible from Ubuntu PPA (works with ubuntu/debian)
