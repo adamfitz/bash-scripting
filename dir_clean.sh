@@ -38,7 +38,7 @@ read_and_delete()
     for i in "${items_to_delete[@]}"
     do
         printf "Deleted directory: $i\n"
-        rm -rf $i | tee deleted_directories
+        rm -rf $i
         echo "$i" >> ./deleted_directories_test
     done
 
