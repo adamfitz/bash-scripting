@@ -9,4 +9,6 @@ Some basic shell scripts I sometimes find useful
 
 - ansible_install_ubuntu.sh - installs ansible from Ubuntu PPA (works with ubuntu/debian)
 
+- ansible_install_centos.sh - install ansible from EPEL repo (CentOS7)
+
 - dir_clean.sh - bulk delete a list of directories from a file
