@@ -37,13 +37,14 @@ read_and_delete()
     # iterate through all elements in the array
     for i in "${items_to_delete[@]}"
     do
-        printf "Deleted directory: $i\n"
-        rm -rf "$i"
-        # rm does not write any output to the screen if the action is successful
-        # so using echo to write out the directories that were actually in the
-        # array to a "log" file in the current directory (accurate enough for
-        # what I am doing)
-        echo "$i" >> ./deleted_directories
+        if [ -d "$i"  ]; then
+            printf "Deleted directory: $i\n"
+            rm -rf "$i"
+            # rm does not write any output to the screen if the action is successful
+            # so using echo to write out the directories that were actually in the
+            # array to a "log" file in the current directory (accurate enough for
+            # what I am doing)
+            echo "$i" >> ./deleted_directories
     done
 
 }
