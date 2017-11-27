@@ -40,3 +40,5 @@ function install_samba()
         printf "Installing Samba..."
         yum -y install samba samba-client samba-common
     }
+
+install_samba
