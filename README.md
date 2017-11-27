@@ -12,3 +12,5 @@ Some basic shell scripts I sometimes find useful
 - ansible_install_centos.sh - install ansible from EPEL repo (CentOS7)
 
 - dir_clean.sh - bulk delete a list of directories from a file
+
+- samba_install - script to install and configure basic authenticated samba share on Centos7
