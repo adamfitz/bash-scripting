@@ -31,6 +31,8 @@ function install_samba()
                     then
                         printf :"$package_1 is already installed skipping..."
                         return 1
+                    else
+                        continue
                 #if package_1 is installed but no package_2, install package_2
                 else
                     printf :"Installing $package_2 ..."
