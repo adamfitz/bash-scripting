@@ -13,4 +13,4 @@ Some basic shell scripts I sometimes find useful
 
 - dir_clean.sh - bulk delete a list of directories from a file
 
-- samba_install - script to install and configure basic authenticated samba share on Centos7
+- samba_install.sh - script to install and configure basic authenticated samba share on Centos7
