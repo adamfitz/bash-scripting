@@ -35,7 +35,7 @@ function install_samba()
                         continue
                 #if package_1 is installed but no package_2, install package_2
                 else
-                    printf :"Installing $package_2 ..."
+                    printf "Installing $package_2 ..."
                     yum -y install $package_2
         # if neither package is installed, install them both
         else
