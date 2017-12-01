@@ -19,26 +19,38 @@ function stop_and_wait()
         read -p "$*"
     }
 
-function install_samba()
-    {
-        package_1="samba-client"
-        package_2="samba-common"
-        # check if package_1 is installed and if yes check if package_2 is installed
-        if yum list installed $package_1;
-            then
-                printf :"$package_1 is already installed skipping..."
-                if yum list installed $package_2;
-                    then
-                        printf :"$package_1 is already installed skipping..."
-                        return 1
-                #if package_1 is installed but no package_2, install package_2
-                else
-                    printf "Installing $package_2 ..."
-                    yum -y install $package_2
-        # if neither package is installed, install them both
-        else
-        printf "Installing Samba..."
-        yum -y install samba samba-client samba-common
-    }
+# install samba
+printf "Installing Samba..."
+yum -y install samba samba-client samba-common
 
-install_samba
+# create a user account and set the password
+printf "Creating user account - shareuser\n"
+useradd shareuser
+# set the new users password
+printf "Please set the password for the shareuser:\n"
+passwd shareuser
+# create a group to allow share access
+printf "Creating group datashare...\n"
+groupadd shareuser
+# add the user account to the group share acces group
+usermod -aG datashare shareuser
+
+# setup the samba configuration
+
+#[movies]
+    #comment = Movies
+    #writable = yes
+    #browsable = yes # test this and perhaps remove
+    #valid users = @datashare
+    #path = /mnt/storage/movies
+    #create mode = 0660
+    #directory mode = 0770
+
+# make the above share directory
+mkdir /mnt/storage/movies
+
+#change the owner group of the new directory to the data share group
+chgrp datashare /mnt/storage/movies
+
+# set the directory mode on the new directory
+chmod 770 /mnt/storage/movies
