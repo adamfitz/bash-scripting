@@ -16,3 +16,5 @@ Some basic shell scripts I sometimes find useful
 - samba_install.sh - script to install and configure basic authenticated samba share on Centos7
 
 - install_frr_centos7.sh - installs and configure frrouting (from git repo)
+
+- move_dir_contents.sh - scritp takes a list of directories from a file and moves them to the root of teh target directory
