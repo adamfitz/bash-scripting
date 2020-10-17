@@ -18,3 +18,5 @@ Some basic shell scripts I sometimes find useful
 - install_frr_centos7.sh - installs and configure frrouting (from git repo)
 
 - move_dir_contents.sh - scritp takes a list of directories from a file and moves them to the root of teh target directory
+
+- update_lang.sh - read list of mkv files in directory and use ffmpeg to write a new output file with the default audio language set to english  
