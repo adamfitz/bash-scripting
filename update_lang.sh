@@ -1,19 +1,20 @@
-#!/bin/bash
-#
 # Author: Adam Fitzgerald
-# Purpose: write output mkv file with default audio language set to english
+# Purpose: convert default audio of mkv file to eng
 # Version: 0.1
 #
 
 for file in *;
 do
   filename="$(basename $file .mkv)"
-  if [[ "$filename" == *"eng-default"* ]];
+  if [[ "$file" != *.mkv ]];
+  then
+    printf "File is not an *.mkv file: $file\n" | tee conversion.log
+  elif [[ "$filename" == *"eng-default"* ]];
   then
     printf "File has already been converted: $file\n" | tee conversion.log
   else
-    printf "Converting file: $file\n"
     # -n to skip overwrite output file if it already exists
-    ffmpeg -i "$file" -map 0:v -map 0:m:language:eng -c copy "$filename"-eng-default.mkv
+    ffmpeg -n -i "$file" -map 0:v -map 0:m:language:eng -c copy "$filename"-eng-default.mkv | tee conversion.log
+    printf "File converted: $file\n"
   fi
 done
