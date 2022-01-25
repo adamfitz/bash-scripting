@@ -20,3 +20,5 @@ Some basic shell scripts I sometimes find useful
 - move_dir_contents.sh - scritp takes a list of directories from a file and moves them to the root of teh target directory
 
 - update_lang.sh - read list of mkv files in directory and use ffmpeg to write a new output file with the default audio language set to english  
+
+- create_vlans.sh - create a number of vlans attached to physical parent interface linux
