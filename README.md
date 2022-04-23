@@ -22,3 +22,5 @@ Some basic shell scripts I sometimes find useful
 - update_lang.sh - read list of mkv files in directory and use ffmpeg to write a new output file with the default audio language set to english  
 
 - create_vlans.sh - create a number of vlans attached to physical parent interface linux
+
+- create_interfaces.sh - create ovs interface/port for vm (using nmcli)
