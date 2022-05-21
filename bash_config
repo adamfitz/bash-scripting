@@ -1,0 +1,12 @@
+# - useful(?) aliases -
+# use weak ciphers (eg: connect to old cisco equipment) - do NOT use in PROD
+alias ssho='ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 -caes256-cbc'
+
+# activate a python virtual env and cd to project dir
+alias alias_name='source <$dirWherePythonVenvIsSetup/bin/activate; cd <PythonProjectDirectory>'
+
+
+
+# - auto load a private ssh key -
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/<$sshPrivateKeyName>
