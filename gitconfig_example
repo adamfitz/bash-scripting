@@ -1,0 +1,4 @@
+[alias]
+	cia = commit --amend --no-edit
+	lol = log --oneline
+	co = checkout
