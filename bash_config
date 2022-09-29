@@ -2,6 +2,9 @@
 # use weak ciphers (eg: connect to old cisco equipment) - do NOT use in PROD
 alias ssho='ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 -caes256-cbc'
 
+# specify an ssh config file to use (containing the old ciphers)
+alias ssho='ssh -F ~/.ssh/config_old -oKexAlgorithms=+diffie-hellman-group1-sha1 -caes256-cbc'
+
 # activate a python virtual env and cd to project dir
 alias alias_name='source <$dirWherePythonVenvIsSetup/bin/activate; cd <PythonProjectDirectory>'
 

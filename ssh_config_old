@@ -1,0 +1,3 @@
+# specify older ciphers to allow to onnect to old cisco devices with weaker crypto eg: 3750g
+HostKeyAlgorithms ssh-rsa
+PubkeyAcceptedKeyTypes ssh-rsa
