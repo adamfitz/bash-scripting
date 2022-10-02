@@ -26,3 +26,5 @@ Some basic shell scripts I sometimes find useful
 - create_interfaces.sh - create ovs interface/port for vm (using nmcli)
 
 - bash_config - some useful bsh profile configuration
+
+- frr_rocky8_install.sh - script installs latest stable frr on Rocky Linux 8 
