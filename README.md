@@ -27,4 +27,6 @@ Some basic shell scripts I sometimes find useful
 
 - bash_config - some useful bsh profile configuration
 
-- frr_rocky8_install.sh - script installs latest stable frr on Rocky Linux 8 
+- frr_rocky8_install.sh - script installs latest stable frr on Rocky Linux 8
+
+- update_nnslackbot.sh - script to backup the local install, load keys, clone repo and restart the systemd service.  Script is primarily for cloning new code to the current running instance.
