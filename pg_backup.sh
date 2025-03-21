@@ -5,6 +5,7 @@ BACKUP_DIR="/mnt/pg_backup"
 BACKUP_PREFIX="pg_backup_"
 LOG_FILE="/root/postgresql_backup.log"
 MAX_BACKUPS=10
+MAX_DUMPS=10    # number of pg_dump files to keep
 
 
 # Ensure log file exists / create it
@@ -37,6 +38,17 @@ echo "$(date +"%Y-%m-%d %H:%M:%S") Backup to location: $NEW_BACKUP completed." >
 # restart postgresql service
 systemctl start postgresql
 echo "$(date +"%Y-%m-%d %H:%M:%S") started postgresql service..." >> "$LOG_FILE"
+
+# Count the number of dump files
+DUMP_COUNT=$(ls -1t /root/pg_dumps/*.dump 2>/dev/null | wc -l)
+echo "pg_dump count is: $DUMP_COUNT..." >> "$LOG_FILE"
+
+# If 10 or more dump files remove the oldest
+if [ "$DUMP_COUNT" -ge "$MAX_DUMPS" ]; then
+    OLDEST_DUMP=$(ls -1tr /root/pg_dumps/*.dump | head -n 1)
+    echo "Deleting oldest backup: $OLDEST_DUMP" >> "$LOG_FILE"
+    rm -f "$OLDEST_DUMP"
+fi
 
 # take a snapshot of the database itself
 echo "$(date +"%Y-%m-%d %H:%M:%S") creating pg_dump snapshot of mangadb..." >> "$LOG_FILE"
